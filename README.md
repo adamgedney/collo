@@ -8,8 +8,6 @@ It's great for manipulation collections in a Redux store.
 ## Getting started
 1. From Command Line run `npm i -S collo`
 
-## Usage
-### Commands
 
 ```
 import Collo from 'collo';
@@ -32,6 +30,9 @@ const myCollection = [
 const collection = new Collo(myCollection);
 
 ```
+
+## Usage
+### Commands
 
 #### `collection.list()`
 List all the items in the collection instance

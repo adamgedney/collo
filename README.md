@@ -1,5 +1,5 @@
 # Collo (Pronounced Call-o) | An npm package for managing collection functions 
-Super lightweight package for dealing with in memory collections. It's like Mongoose and Lodash in one.
+Super lightweight package for dealing with in memory collections. It's like Mongoose and Lodash in one. It's like Collections Lodash.
 It's great for manipulation collections in a Redux store.
 
 ## Features
@@ -47,6 +47,15 @@ Pluck an item by key/value
 collection.findWhere({id:1})
 ```
 
+
+#### collection.insert
+INsert an item at the end of the stack
+```
+collection.insert({
+    id: 3,
+    name: 'Paki Paki'
+})
+```
 
 #### collection.insertAtIndex
 Splice in an item at a certain index

@@ -1,4 +1,4 @@
-export default function (collection) {
+export const Collo  = function (collection) {
 	this._collection = collection || [];
 
 	/**
@@ -97,4 +97,4 @@ export default function (collection) {
 	});
 
 	return this;
-}
+};

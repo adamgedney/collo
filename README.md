@@ -36,12 +36,16 @@ const collection = new Collo(myCollection);
 
 #### collection.list
 List all the items in the collection instance
-```collection.list()```
+```
+collection.list()
+```
 
 
 #### collection.findWhere
 Pluck an item by key/value
-```collection.findWhere({id:1})```
+```
+collection.findWhere({id:1})
+```
 
 
 #### collection.insertAtIndex
@@ -75,7 +79,9 @@ collection.updateWhere({id:2},{
 
 #### collection.removeWhere
 Remove an item where the key/value match an item in the collection
-```collection.removeWhere({id:3})```
+```
+collection.removeWhere({id:3})
+```
 
 
 #### Contributions

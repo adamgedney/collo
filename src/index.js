@@ -75,8 +75,12 @@ export default function (collection) {
 	 * @param key
 	 * @param value
 	 */
-  	this.removeWhere = (key, value) => this._collection
-	  .filter(item => item[key] && !(item[key] === value));
+  	this.removeWhere = val => this._collection
+	  .filter(item => {
+		  let key = Object.keys(val)[0];
+
+		  return item[key] && !(item[key] === val[key]);
+	  });
 
 	/**
 	 * Perform a normal update if the key and value match

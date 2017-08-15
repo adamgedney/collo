@@ -1,78 +1,70 @@
-# An npm package for managing collection functions 
-[![Build Status](https://travis-ci.org/eunikitin/npm-package-es6-boilerplate.svg?branch=master)](https://travis-ci.org/eunikitin/npm-package-es6-boilerplate)
-[![Coverage Status](https://coveralls.io/repos/github/eunikitin/npm-package-es6-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/eunikitin/npm-package-es6-boilerplate?branch=master)
-[![dependencies Status](https://david-dm.org/eunikitin/npm-package-es6-boilerplate/status.svg)](https://david-dm.org/eunikitin/npm-package-es6-boilerplate)
-[![devDependencies Status](https://david-dm.org/eunikitin/npm-package-es6-boilerplate/dev-status.svg)](https://david-dm.org/eunikitin/npm-package-es6-boilerplate?type=dev)
+# Collo [Pronounced `Call-O`] | An npm package for managing collection functions 
+Super lightweight package for dealing with in memory collections. It's like Mongoose and Lodash in one.
+It's great for manipulation collections in a Redux store.
 
 ## Features
-* Build with [webpack 2](https://webpack.js.org/) and [babel](https://babeljs.io/)
-* Test with [mocha](https://mochajs.org/), [chai](http://chaijs.com/) and [sinon](http://sinonjs.org/)
-* Cover with [istanbul](https://github.com/gotwarlost/istanbul)
-* Lint with [eslint](http://eslint.org/) ([air-bnb config](https://github.com/airbnb/javascript))
-* CI with [travis-ci.org](https://travis-ci.org/)
-* Coverage info with [coveralls.io](https://coveralls.io)
+
 
 ## Getting started
-1. [Clone this repo from github](https://github.com/eunikitin/npm-package-es6-boilerplate)
-2. Inside repo directory run `npm install && rm -r .git && git init`
-2. Update package.json with your information
+1. From Command Line run `npm i -S collo`
 
 ## Usage
 ### Commands
 
-#### `npm run clean`
-Delete all cache and output files
-
-#### `npm run dev`
-Build your library in development mode
-
-#### `npm run build`
-Build your library in production mode
-
-#### `npm run test`
-Run tests
-
-#### `npm run test:watch`
-Run tests in watch mode
-
-#### `npm run cover`
-Cover your code (Work with ES6)
-
-#### `npm run coveralls`
-Sends coverage details to [coveralls.io](https://coveralls.io).
-Used in .travis.yml and should not be used manually.
-
-#### `npm run lint`
-Check your code for errors and code styles
-
-#### `npm run prepublish`
-Hook for npm, that executes when you publishing package in npm repository.
-
-### Lint
-This boilerplate uses
-[air-bnb code style conventions](https://github.com/airbnb/javascript#table-of-contents),
-however if you don't like it, you can disable it, by removing the following line in 
-`.eslintrc` config file:
-```js
-{
-  //...
-  
-  "extends": "airbnb"
-}
 ```
+import Collo from 'collo';
 
-### Webpack aliases
-If you are as tired as me to write '../../../' in the
-require statements, you can use
-[alias feature provided by webpack](https://webpack.js.org/configuration/resolve/#resolve-alias).
-Here is an example of aliases, built in this boilerplate
-by default (`builder/resolve.js`):
-```js
-resolve: {
-    alias: {
-        Src: path.resolve(process.cwd() + '/src'),
-        Lib: path.resolve(process.cwd() + '/lib')
+const myCollection = [
+    {
+        id: 1,
+        name: 'pigeon'
+    },
+    {
+        id: 2,
+        name: 'badger'
+    },
+    {
+        id: 3,
+        name: 'squirrel'
     }
-}
+];
+
+const collection = new Collo(myCollection);
+
 ```
-Feel free to add your custom aliases, they are awesome.
+
+#### `collection.list()`
+List all the items in the collection instance
+
+
+#### `collection.findWhere({id:1})`
+Pluck an item by key/value
+
+
+#### `collection.insertAtIndex({
+        id: 3,
+        name: 'Paki Paki'
+    },index)`
+Splice in an item at a certain index
+
+
+#### `collection.upsert({id:3},{
+        id: 3,
+        name: 'Paki Paki'
+    })`
+Super handy upsert function. Id the key/value is found then the data is updated, otherwise it's pushed into the stack
+
+
+#### `collection.updateWhere({id:2},{
+        id: 2,
+        name: 'Mama Chiggy'
+    })`
+Update an item where the key/value match an item in the collection
+
+#### `collection.removeWhere({id:3})`
+Remove an item where the key/value match an item in the collection
+
+
+#### Contributions
+If you would like to contribute, find an issue, or have a feature request, create an Issue.
+Also, see CONTRIBUTORS.md for contribution instructions

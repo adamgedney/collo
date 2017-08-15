@@ -176,7 +176,7 @@ describe('The removeWhere fn', () => {
 
 		const collo = _c.filter(item => item[key] && !(item[key] === value));
 
-		expect(collection.removeWhere(key,value)).to.deep.equal(collo);
+		expect(collection.removeWhere({id:3})).to.deep.equal(collo);
 	});
 });
 

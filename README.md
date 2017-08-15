@@ -1,4 +1,4 @@
-# Collo [Pronounced `Call-O`] | An npm package for managing collection functions 
+# Collo (Pronounced Call-o) | An npm package for managing collection functions 
 Super lightweight package for dealing with in memory collections. It's like Mongoose and Lodash in one.
 It's great for manipulation collections in a Redux store.
 

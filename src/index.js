@@ -41,7 +41,7 @@ export default function (collection) {
 
 	/**
 	 * If the item exists, perform an dupdate, otherwise insert
-	 * @param key
+	 * @param val
 	 * @param item
 	 * @returns {*}
 	 */
@@ -72,8 +72,7 @@ export default function (collection) {
 
 	/**
 	 * Remove where the key and value match
-	 * @param key
-	 * @param value
+	 * @param val
 	 */
   	this.removeWhere = val => this._collection
 	  .filter(item => {
@@ -84,7 +83,7 @@ export default function (collection) {
 
 	/**
 	 * Perform a normal update if the key and value match
-	 * @param key
+	 * @param val
 	 * @param item
 	 */
 	this.updateWhere = (val,item) => this._collection.map(it => {

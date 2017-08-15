@@ -1,15 +1,97 @@
+export default function (collection) {
+	this._collection = collection || [];
 
-export const Collection = function (collection){
+	/**
+	 * Return the current collection
+	 */
+	this.list = () => this._collection;
 
-  this.list = ()=>collection;
+	/**
+	 * Return the item where the key/al match
+	 * @param val
+	 */
+	this.findWhere = val => this._collection
+	  .filter(item => {
+		  let key = Object.keys(val)[0];
 
-  this.findWhere = (key,value)=>collection
-      .filter(item=>item[key] && item[key] === value)[0];
+		  return item[key] && item[key] === val[key];
+	  })[0];
 
-  this.insert = ()=>{};
-  this.upsert = ()=>{};
-  this.remove = ()=>{};
-  this.update = ()=>{};
+	/**
+	 * Insert the item at the end of the stack
+	 * @param item
+	 * @returns {*|Array}
+	 */
+	this.insert = item => {
+	  this._collection.push(item);
 
-  return this;
-};
+	  return this._collection;
+	};
+
+	/**
+	 * Splice an item in at an exact position in the collection
+	 * @param item
+	 * @param index
+	 * @returns {*|Array}
+	 */
+	this.insertAtIndex = (item, index) => {
+		this._collection.splice(index,0,item);
+		return this._collection;
+	};
+
+	/**
+	 * If the item exists, perform an dupdate, otherwise insert
+	 * @param key
+	 * @param item
+	 * @returns {*}
+	 */
+	this.upsert = (val,item) => {
+	  let wasInCollection = false;
+
+	  const upsrt = this._collection.map(it => {
+		  let key = Object.keys(val)[0];
+
+		  if(it[key] === val[key]){
+			  wasInCollection = true;
+
+			 return  Object.assign({},it,item);
+		  }else{
+			  return it;
+		  }
+	  });
+
+
+	  if(!wasInCollection){
+		  this.insert(item);
+
+		  return this._collection;
+	  }else{
+		  return upsrt;
+	  }
+	};
+
+	/**
+	 * Remove where the key and value match
+	 * @param key
+	 * @param value
+	 */
+  	this.removeWhere = (key, value) => this._collection
+	  .filter(item => item[key] && !(item[key] === value));
+
+	/**
+	 * Perform a normal update if the key and value match
+	 * @param key
+	 * @param item
+	 */
+	this.updateWhere = (val,item) => this._collection.map(it => {
+	  let key = Object.keys(val)[0];
+
+	  if(it[key] === val[key]){
+		  return  Object.assign({},it,item);
+	  }else{
+		  return it;
+	  }
+	});
+
+	return this;
+}

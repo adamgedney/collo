@@ -45,26 +45,32 @@ Pluck an item by key/value
 
 
 #### collection.insertAtIndex
-```collection.insertAtIndex({
+```
+collection.insertAtIndex({
     id: 3,
     name: 'Paki Paki'
-},index)```
+},index)
+```
 Splice in an item at a certain index
 
 
 #### collection.upsert
- ```collection.upsert({id:3},{
+ ```
+ collection.upsert({id:3},{
     id: 3,
     name: 'Paki Paki'
-})```
+})
+```
 Super handy upsert function. Id the key/value is found then the data is updated, otherwise it's pushed into the stack
 
 
 #### collection.updateWhere
-```collection.updateWhere({id:2},{
+```
+collection.updateWhere({id:2},{
     id: 2,
     name: 'Mama Chiggy'
-})```
+})
+```
 Update an item where the key/value match an item in the collection
 
 #### `collection.removeWhere({id:3})`

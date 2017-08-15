@@ -35,46 +35,47 @@ const collection = new Collo(myCollection);
 ### Commands
 
 #### collection.list
-`collection.list()`
 List all the items in the collection instance
+`collection.list()`
 
 
 #### collection.findWhere
-`collection.findWhere({id:1})`
 Pluck an item by key/value
+`collection.findWhere({id:1})`
 
 
 #### collection.insertAtIndex
+Splice in an item at a certain index
 ```
 collection.insertAtIndex({
     id: 3,
     name: 'Paki Paki'
 },index)
 ```
-Splice in an item at a certain index
 
 
 #### collection.upsert
+Super handy upsert function. Id the key/value is found then the data is updated, otherwise it's pushed into the stack
  ```
  collection.upsert({id:3},{
     id: 3,
     name: 'Paki Paki'
 })
 ```
-Super handy upsert function. Id the key/value is found then the data is updated, otherwise it's pushed into the stack
 
 
 #### collection.updateWhere
+Update an item where the key/value match an item in the collection
 ```
 collection.updateWhere({id:2},{
     id: 2,
     name: 'Mama Chiggy'
 })
 ```
-Update an item where the key/value match an item in the collection
 
-#### `collection.removeWhere({id:3})`
+#### collection.removeWhere
 Remove an item where the key/value match an item in the collection
+`collection.removeWhere({id:3})`
 
 
 #### Contributions

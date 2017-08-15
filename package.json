@@ -33,7 +33,7 @@
     "mail": "adam.gedney@gmail.com",
     "url": "https://github.com/adamgedney/collo.git/issues"
   },
-  "main": "lib/index.min.js",
+  "main": "index.js",
   "scripts": {
     "clean": "rimraf ./.nyc_output ./.tmp ./coverage ./lib",
     "dev": "node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.build.development.js",

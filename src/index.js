@@ -1,4 +1,4 @@
-module.exports =  function (collection) {
+export default function (collection) {
 	this._collection = collection || [];
 
 	/**

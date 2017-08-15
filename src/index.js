@@ -1,4 +1,4 @@
-export const Collo  = function (collection) {
+module.exports =  function (collection) {
 	this._collection = collection || [];
 
 	/**

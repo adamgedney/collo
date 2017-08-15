@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { Collo } from 'Src/index.js';
+import Collo from 'Src/index.js';
+//import Collo from 'Lib/index.min.js';
 
 const c = [
     {

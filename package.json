@@ -1,6 +1,6 @@
 {
   "name": "collo",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A simple npm package for managing collection functions",
   "keywords": [
     "npm-package",

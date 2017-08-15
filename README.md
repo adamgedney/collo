@@ -10,7 +10,7 @@ It's great for manipulation collections in a Redux store.
 
 
 ```
-import Collo from 'collo';
+import { Collo } from 'collo';
 
 const myCollection = [
     {

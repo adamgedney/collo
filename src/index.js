@@ -18,6 +18,12 @@ export default function (collection) {
 	  })[0];
 
 	/**
+	 * Used to determine if an item is in the collection
+	 * @param val
+	 */
+	this.exists = val => !!this.findWhere(val);
+
+	/**
 	 * Insert the item at the end of the stack
 	 * @param item
 	 * @returns {*|Array}

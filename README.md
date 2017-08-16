@@ -1,8 +1,7 @@
-# Collo (Pronounced Call-o) | An npm package for managing collection functions 
-Super lightweight package for dealing with in memory collections. It's like Mongoose and Lodash in one. It's like Collections Lodash.
-It's great for manipulation collections in a Redux store.
-
-## Features
+# Collo | An npm package for managing collection functions 
+(Pronounced Call-O)! 
+Super lightweight package for dealing with in memory collections. It's like Mongoose and Lodash in one. It's like Collections Lodash [Col Lo].
+It's great for manipulation collections stored in a Redux store.
 
 
 ## Getting started
@@ -10,89 +9,93 @@ It's great for manipulation collections in a Redux store.
 
 
 ```
-import { Collo } from 'collo';
-
-const myCollection = [
-    {
-        id: 1,
-        name: 'pigeon'
-    },
-    {
-        id: 2,
-        name: 'badger'
-    },
-    {
-        id: 3,
-        name: 'squirrel'
-    }
-];
-
-const collection = new Collo(myCollection);
+    import Collo from 'collo';
+    
+    const myCollection = [
+        {
+            id: 1,
+            name: 'pigeon'
+        },
+        {
+            id: 2,
+            name: 'badger'
+        },
+        {
+            id: 3,
+            name: 'squirrel'
+        }
+    ];
+    
+    const collection = new Collo(myCollection);
 
 ```
 
 ## Usage
-### Commands
 
 #### collection.list
-List all the items in the collection instance
-```
-collection.list()
-```
+    List all the items in the collection instance
+    ```
+    collection.list()
+    ```
 
 
 #### collection.findWhere
-Pluck an item by key/value
-```
-collection.findWhere({id:1})
-```
+    Pluck an item by key/value
+    ```
+    collection.findWhere({id:1})
+    ```
 
+#### collection.exists
+    Return a Boolean true if the item is in the collection, or false if not
+    ```
+    collection.exists({id:1})
+    ```
 
 #### collection.insert
-INsert an item at the end of the stack
-```
-collection.insert({
-    id: 3,
-    name: 'Paki Paki'
-})
-```
+    Insert an item at the end of the stack
+    ```
+    collection.insert({
+        id: 3,
+        name: 'Paki Paki'
+    })
+    ```
 
 #### collection.insertAtIndex
-Splice in an item at a certain index
-```
-collection.insertAtIndex({
-    id: 3,
-    name: 'Paki Paki'
-},index)
-```
+    Splice in an item at a certain index
+    ```
+    collection.insertAtIndex({
+        id: 3,
+        name: 'Paki Paki'
+    },index)
+    ```
 
 
 #### collection.upsert
-Super handy upsert function. Id the key/value is found then the data is updated, otherwise it's pushed into the stack
- ```
- collection.upsert({id:3},{
-    id: 3,
-    name: 'Paki Paki'
-})
-```
+    Super handy upsert function. If the key/value is found then the data is updated, otherwise it's pushed into the stack
+     ```
+     collection.upsert({id:3},{
+        id: 3,
+        name: 'Paki Paki'
+    })
+    ```
 
 
 #### collection.updateWhere
-Update an item where the key/value match an item in the collection
-```
-collection.updateWhere({id:2},{
-    id: 2,
-    name: 'Mama Chiggy'
-})
-```
+    Update an item where the key/value match an item in the collection
+    ```
+    collection.updateWhere({id:2},{
+        id: 2,
+        name: 'Mama Chiggy'
+    })
+    ```
 
 #### collection.removeWhere
-Remove an item where the key/value match an item in the collection
-```
-collection.removeWhere({id:3})
-```
+    Remove an item where the key/value match an item in the collection
+    ```
+    collection.removeWhere({id:3})
+    ```
 
 
 #### Contributions
-If you would like to contribute, find an issue, or have a feature request, create an Issue.
-Also, see CONTRIBUTORS.md for contribution instructions
+    If you would like to contribute, find an issue, or have a feature request, create an Issue.
+    Also, see CONTRIBUTORS.md for contribution instructions

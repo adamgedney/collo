@@ -25,11 +25,23 @@ describe('The list fn', () => {
 // findWhere
 describe('The findWhere fn', () => {
   it('should return the Adam object', () => {
-      expect(collection.findWhere({id:1})).to.deep.equal({
-        id: 1,
-        name: 'Adam'
-      });
+      expect(collection.findWhere({id:1}))
+		  .to
+		  .deep
+		  .equal({
+				id: 1,
+				name: 'Adam'
+			  });
     });
+});
+
+// exists
+describe('The exists fn', () => {
+	it('should return true', () => {
+		expect(collection.exists({id:2}))
+			.to
+			.equal(true);
+	});
 });
 
 // insert
@@ -45,7 +57,10 @@ describe('The insert fn', () => {
 		expect(collection.insert({
 			id: 3,
 			name: 'Paki Paki'
-		})).to.deep.equal(_c);
+		}))
+			.to
+			.deep
+			.equal(_c);
 	});
 });
 
@@ -64,7 +79,10 @@ describe('The insertAtIndex fn', () => {
 		expect(collection.insertAtIndex({
 			id: 3,
 			name: 'Paki Paki'
-		},index)).to.deep.equal(_c);
+		},index))
+			.to
+			.deep
+			.equal(_c);
 	});
 });
 
@@ -100,7 +118,10 @@ describe('The upsert [NO found item] fn', () => {
 		expect(collection.upsert({id:3},{
 			id: 3,
 			name: 'Paki Paki'
-		})).to.deep.equal(_c);
+		}))
+			.to
+			.deep
+			.equal(_c);
 	});
 });
 
@@ -132,7 +153,10 @@ describe('The upsert [Item FOUND] fn', () => {
 		expect(collection.upsert({id:2},{
 			id: 2,
 			name: 'Juliana & Mila'
-		})).to.deep.equal(_c);
+		}))
+			.to
+			.deep
+			.equal(_c);
 	});
 });
 
@@ -164,7 +188,10 @@ describe('The updateWhere fn', () => {
 		expect(collection.updateWhere({id:2},{
 			id: 2,
 			name: 'Juliana & Mila'
-		})).to.deep.equal(_c);
+		}))
+			.to
+			.deep
+			.equal(_c);
 	});
 });
 
@@ -175,9 +202,12 @@ describe('The removeWhere fn', () => {
 		const key = 'id',
 			value = 3;
 
-		const collo = _c.filter(item => item[key] && !(item[key] === value));
+		const coll = _c.filter(item => item[key] && !(item[key] === value));
 
-		expect(collection.removeWhere({id:3})).to.deep.equal(collo);
+		expect(collection.removeWhere({id:3}))
+			.to
+			.deep
+			.equal(coll);
 	});
 });
 

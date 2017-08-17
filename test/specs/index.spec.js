@@ -16,26 +16,23 @@ const c = [
 const promisify = false;
 const collection = new Collo(c,{promisify});
 
-console.log('COLLECTION************',collection.prototype);
+//console.log('COLLECTION************',collection.prototype);
 
 // list
-if(!promisify){
-	describe('The list fn', () => {
-		it('should return the same collection', () => {
+describe('The list fn', () => {
+	it('should return the same collection', () => {
+		if(!promisify) {
 			expect(collection.list()).to.equal(c);
-		});
-	});
-}else{
-	describe('The list fn', () => {
-		it('should be thenable', () => {
+		}else{
 			collection
 				.list()
 				.then(res=>{
 					expect(res).to.equal(c);
 				});
-		});
+		}
 	});
-}
+});
+
 
 // findWhere
 describe('The findWhere fn', () => {
@@ -66,74 +63,80 @@ describe('The findWhere fn', () => {
 
 describe('The findWhere fn', () => {
 	it('should return null given a bad input', () => {
-		expect(collection.findWhere([]))
-			.to
-			.deep
-			.equal(null);
+		if(!promisify) {
+			expect(collection.findWhere([]))
+				.to
+				.deep
+				.equal(null);
+		}else{
+			collection
+				.findWhere([])
+				.then(res=>{
+					expect(res)
+						.to
+						.deep
+						.equal(null);
+				});
+		}
 	});
 });
 
 // exists
-if(!promisify){
-	describe('The exists fn', () => {
-		it('should return true', () => {
-			expect(collection.exists({id:2}))
+describe('The exists fn', () => {
+	it('should return true', () => {
+		if(!promisify) {
+			expect(collection.exists({id: 2}))
 				.to
 				.equal(true);
-		});
-	});
-}else{
-	describe('The exists fn', () => {
-		it('should be thenable', () => {
+		}else{
 			collection.exists({id:2})
 				.then(res=>{
 					expect(res)
 						.to
 						.equal(true);
 				});
-		});
+		}
 	});
-}
+});
+
 
 describe('The exists fn', () => {
 	it('should return null given a bad input', () => {
-		expect(collection.exists([]))
-			.to
-			.deep
-			.equal(null);
+		if(!promisify) {
+			expect(collection.exists([]))
+				.to
+				.deep
+				.equal(null);
+		}else{
+			collection.exists([])
+				.then(res=>{
+					expect(res)
+						.to
+						.equal(null);
+				});
+		}
 	});
 });
 
 // insert
-if(!promisify){
-	describe('The insert fn', () => {
-		it('should return the collection with one more item in it', () => {
-			let _c = c;
+describe('The insert fn', () => {
+	it('should return the collection with one more item in it', () => {
+		let _c = c;
 
-			_c.push({
-				id: 3,
-				name: 'Paki Paki'
-			});
+		_c.push({
+			id: 3,
+			name: 'Paki Paki'
+		});
 
+		if(!promisify) {
 			expect(collection.insert({
-				id: 3,
+				id  : 3,
 				name: 'Paki Paki'
 			}))
 				.to
 				.deep
 				.equal(_c);
-		});
-	});
-}else{
-	describe('The insert fn', () => {
-		it('should be thenable', () => {
-			let _c = c;
-
-			_c.push({
-				id: 3,
-				name: 'Paki Paki'
-			});
-
+		}else{
 			collection.insert({
 				id: 3,
 				name: 'Paki Paki'
@@ -143,20 +146,28 @@ if(!promisify){
 					.deep
 					.equal(_c);
 			});
-		});
-	});
-}
-
-describe('The insert fn', () => {
-	it('should return null given a bad input', () => {
-		expect(collection.insert([]))
-			.to
-			.deep
-			.equal(null);
+		}
 	});
 });
 
 
+describe('The insert fn', () => {
+	it('should return null given a bad input', () => {
+		if(!promisify) {
+			expect(collection.insert([]))
+				.to
+				.equal(null);
+		}else{
+			collection.insert([]).then(res=>{
+				expect(res)
+					.to
+					.equal(null);
+			});
+		}
+	});
+});
+
+//@TODO ******* Left off refactoring test body to conditionallly support promises
 // insertAtIndex
 if(!promisify){
 	describe('The insertAtIndex fn', () => {

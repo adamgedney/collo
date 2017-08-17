@@ -12,13 +12,10 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 	 * @param item
 	 * @private
 	 */
-	self._isObject = (item)=>{
-		return item && typeof item === 'object' && Object.keys(item).length;
-	};
+	self._isObject = (item)=>item && typeof item === 'object' && Object.keys(item).length;
 
 	/**
 	 * Internal index fetcher
-	 * @todo : hide private methods in the prototype
 	 * @param val
 	 * @returns {boolean}
 	 * @private
@@ -28,9 +25,7 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 		let key = Object.keys(val)[0];
 
 		self._collection.forEach((item,i)=>{
-			if(item[key] === val[key]){
-				index = i;
-			}
+			if(item[key] === val[key]){ index = i; }
 		});
 
 		return index;
@@ -124,13 +119,9 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 	 * Used to determine if an item is in the collection
 	 * @param val
 	 */
-	self.exists = val => {
-		if(self._isObject(val)) {
-			return self._onSuccess(!!self._getTheIndexOf(val),options);
-		}else{
-			return self._onFail({Error:InvalidInputType},options);
-		}
-	};
+	self.exists = val =>self._isObject(val)
+		? self._onSuccess(!!self._getTheIndexOf(val),options)
+		: self._onFail({Error:InvalidInputType},options);
 
 	/**
 	 * Insert the item at the end of the stack
@@ -142,9 +133,9 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 			self._collection.push(item);
 
 			return self._onSuccess(self._collection,options);
-		}else{
-			return self._onFail({Error:InvalidInputType},options);
 		}
+
+		return self._onFail({Error:InvalidInputType},options);
 	};
 
 	/**
@@ -158,9 +149,9 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 			self._collection.splice(index, 0, item);
 
 			return self._onSuccess(self._collection,options);
-		}else{
-			return self._onFail({Error:InvalidInputType},options);
 		}
+
+		return self._onFail({Error:InvalidInputType},options);
 	};
 
 	/**
@@ -186,9 +177,9 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 			}
 
 			return self._onSuccess(self._collection,options);
-		}else{
-			return self._onFail({Error:InvalidInputType},options);
 		}
+
+		return self._onFail({Error:InvalidInputType},options);
 	};
 
 	/**
@@ -205,9 +196,9 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 				return self._onSuccess(self._collection,options);
 			}else{
 				return self._onFail({Error:NotFound},options);			}
-		}else{
-			return self._onFail({Error:InvalidInputType},options);
 		}
+
+		return self._onFail({Error:InvalidInputType},options);
 	};
 
 	/**
@@ -229,9 +220,9 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 			});
 
 			return self._onSuccess(self._collection,options);
-		}else{
-			return self._onFail({Error:InvalidInputType},options);
 		}
+
+		return self._onFail({Error:InvalidInputType},options);
 	};
 
 	return this;

@@ -1,4 +1,4 @@
-function collo(collection, options={}, next=()=>{}, error=()=>{}) {
+function collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 	this._collection = collection || [];
 	this.next = next;
 	this.error = error;
@@ -6,6 +6,13 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 	const self = this;
 	const InvalidInputType = "Invalid input type. Input must be an object";
 	const NotFound = "Item not found in the collection";
+
+	let options = opts || {};
+
+	/**
+	 * Setter for promisifying the api
+	 */
+	self.promisify = ()=>{options['promisify'] = true};
 
 	/**
 	 * Check if is an object with values
@@ -52,16 +59,13 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 	};
 
 	self._onFail = (input,options)=>{
-		//const response = input.hasOwnProperty('Error') ? null : input;
 		const response = null;
 
-		this.error(response);
-
-		console.log('ERROR',response,input,options,this);
+		this.error(response,input);
 
 		if(options.promisify){
 			return new Promise(function (resolve, reject) {
-				reject(response);
+				reject(response,input);
 			});
 		}
 
@@ -165,6 +169,8 @@ function collo(collection, options={}, next=()=>{}, error=()=>{}) {
 			if (!self._getTheIndexOf(val)) {
 				self.insert(item);
 			} else {
+
+				// Update
 				self._collection = self._collection.map(it => {
 					let key = Object.keys(val)[0];
 

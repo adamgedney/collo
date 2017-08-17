@@ -13,8 +13,13 @@ const c = [
     }
 ];
 
-const promisify = false;
-const collection = new Collo(c,{promisify});
+// For testing you can toggle this boolean to run the promisified tests or the returns
+const promisify = true;
+const collection = new Collo(c);
+
+if(promisify){
+	collection.promisify();
+}
 
 //console.log('COLLECTION************',collection.prototype);
 
@@ -28,6 +33,9 @@ describe('The list fn', () => {
 				.list()
 				.then(res=>{
 					expect(res).to.equal(c);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
 				});
 		}
 	});
@@ -56,6 +64,9 @@ describe('The findWhere fn', () => {
 							id: 1,
 							name: 'Adam'
 						});
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
 				});
 		}
 	});
@@ -76,6 +87,9 @@ describe('The findWhere fn', () => {
 						.to
 						.deep
 						.equal(null);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
 				});
 		}
 	});
@@ -94,6 +108,9 @@ describe('The exists fn', () => {
 					expect(res)
 						.to
 						.equal(true);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
 				});
 		}
 	});
@@ -113,6 +130,9 @@ describe('The exists fn', () => {
 					expect(res)
 						.to
 						.equal(null);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
 				});
 		}
 	});
@@ -140,12 +160,16 @@ describe('The insert fn', () => {
 			collection.insert({
 				id: 3,
 				name: 'Paki Paki'
-			}).then(res=>{
-				expect(res)
-					.to
-					.deep
-					.equal(_c);
-			});
+			})
+				.then(res=>{
+					expect(res)
+						.to
+						.deep
+						.equal(_c);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
 		}
 	});
 });
@@ -158,28 +182,31 @@ describe('The insert fn', () => {
 				.to
 				.equal(null);
 		}else{
-			collection.insert([]).then(res=>{
-				expect(res)
-					.to
-					.equal(null);
-			});
+			collection.insert([])
+				.then(res=>{
+					expect(res)
+						.to
+						.equal(null);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
 		}
 	});
 });
 
-//@TODO ******* Left off refactoring test body to conditionallly support promises
 // insertAtIndex
-if(!promisify){
-	describe('The insertAtIndex fn', () => {
-		it('should return the same collection as the test', () => {
-			let _c = c;
-			const index = 1;
+describe('The insertAtIndex fn', () => {
+	it('should return the same collection as the test', () => {
+		let _c = c;
+		const index = 1;
 
-			_c.splice(index,0,{
-				id: 5,
-				name: 'Mirom'
-			});
+		_c.splice(index,0,{
+			id: 5,
+			name: 'Mirom'
+		});
 
+		if(!promisify) {
 			expect(collection.insertAtIndex({
 				id: 3,
 				name: 'Paki Paki'
@@ -187,233 +214,202 @@ if(!promisify){
 				.to
 				.deep
 				.equal(_c);
-		});
-	});
-}else{
-	describe('The insertAtIndex fn', () => {
-		it('should be thenable', () => {
-			let _c = c;
-			const index = 1;
-
-			_c.splice(index,0,{
-				id: 5,
-				name: 'Mirom'
-			});
-
+		}else{
 			collection.insertAtIndex({
-				id: 3,
-				name: 'Paki Paki'
-			},index)
+					id: 3,
+					name: 'Paki Paki'
+				},index)
 				.then(res=>{
 					expect(res)
 						.to
 						.deep
 						.equal(_c);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
 				});
-		});
-	});
-}
-
-describe('The insertAtIndex fn', () => {
-	it('should return null given a bad input', () => {
-		expect(collection.insertAtIndex([]))
-			.to
-			.deep
-			.equal(null);
+		}
 	});
 });
 
+
+describe('The insertAtIndex fn', () => {
+	it('should return null given a bad input', () => {
+		if(!promisify) {
+			expect(collection.insertAtIndex([]))
+				.to
+				.deep
+				.equal(null);
+		}else{
+			collection.insertAtIndex([])
+				.then(res=>{
+					expect(res)
+						.to
+						.equal(null);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
+		}
+	});
+});
+
+
 // upsert not found
-if(!promisify){
-	describe('The upsert [NO found item] fn', () => {
-		it('should return the same collection as the input plus the new item', () => {
-			const collection = new Collo([
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana'
-				}
-			]);
+describe('The upsert [NO found item] fn', () => {
+	it('should return the same collection as the input plus the new item', () => {
+		const collection = new Collo([
+			{
+				id: 1,
+				name: 'Adam'
+			},
+			{
+				id: 2,
+				name: 'Juliana'
+			}
+		]);
 
-			let _c = [
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana'
-				},
-				{
-					id: 3,
-					name: 'Paki Paki'
-				}
-			];
+		let _c = [
+			{
+				id: 1,
+				name: 'Adam'
+			},
+			{
+				id: 2,
+				name: 'Juliana'
+			},
+			{
+				id: 3,
+				name: 'Paki Paki'
+			}
+		];
 
+		if(!promisify) {
 			expect(collection.upsert({id:3},{
 				id: 3,
 				name: 'Paki Paki'
 			}))
-			.to
-			.deep
-			.equal(_c);
-		});
-	});
-}else{
-	describe('The upsert [NO found item] fn', () => {
-		it('should be thenable and return the same collection as the input plus the new item', () => {
-			const collection = new Collo([
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana'
-				}
-			]);
-
-			let _c = [
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana'
-				},
-				{
-					id: 3,
-					name: 'Paki Paki'
-				}
-			];
+				.to
+				.deep
+				.equal(_c);
+		}else{
+			collection.promisify();
 
 			collection.upsert({id:3},{
-				id: 3,
-				name: 'Paki Paki'
-			})
-			.then(res=>{
-				expect(res)
-					.to
-					.deep
-					.equal(_c);
-			});
-		});
+					id: 3,
+					name: 'Paki Paki'
+				})
+				.then(res=>{
+					expect(res)
+						.to
+						.equal(null);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
+		}
 	});
-}
+});
 
 // upsert item FOUND
-if(!promisify){
-	describe('The upsert [Item FOUND] fn', () => {
-		it('should return the same collection as the input plus the new item', () => {
-			const collection = new Collo([
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana'
-				}
-			]);
+describe('The upsert [Item FOUND] fn', () => {
+	it('should return the same collection as the input plus the new item', () => {
+		const collection = new Collo([
+			{
+				id: 1,
+				name: 'Adam'
+			},
+			{
+				id: 2,
+				name: 'Juliana'
+			}
+		]);
 
-			let _c = [
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana & Mila'
-				}
-			];
+		let _c = [
+			{
+				id: 1,
+				name: 'Adam'
+			},
+			{
+				id: 2,
+				name: 'Juliana & Mila'
+			}
+		];
+
+		if(!promisify) {
+			expect(collection.upsert({id:2},{
+				id: 2,
+				name: 'Juliana & Mila'
+			}))
+				.to
+				.deep
+				.equal(_c);
+		}else{
+			collection.promisify();
 
 			expect(collection.upsert({id:2},{
 				id: 2,
 				name: 'Juliana & Mila'
 			}))
-			.to
-			.deep
-			.equal(_c);
-		});
+				.then(res=>{
+					expect(res)
+						.to
+						.equal(_c);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
+		}
 	});
-}else{
-	describe('The upsert [Item FOUND] fn', () => {
-		it('should be thenable and return the same collection as the input plus the new item', () => {
-			const collection = new Collo([
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana'
-				}
-			]);
-
-			let _c = [
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana & Mila'
-				}
-			];
-
-			collection.upsert({id:2},{
-				id: 2,
-				name: 'Juliana & Mila'
-			})
-			.then(res=>{
-				expect(res)
-					.to
-					.deep
-					.equal(_c);
-			});
-		});
-	});
-}
+});
 
 describe('The upsert fn', () => {
 	it('should return null given a bad input', () => {
-		expect(collection.upsert([]))
-			.to
-			.deep
-			.equal(null);
+		if(!promisify) {
+			expect(collection.upsert([]))
+				.to
+				.deep
+				.equal(null);
+		}else{
+			collection.upsert([])
+				.then(res=>{
+					expect(res)
+						.to
+						.equal(null);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
+		}
 	});
 });
 
 // updateWhere
-if(!promisify){
-	describe('The updateWhere fn', () => {
-		it('should return the same collection as the test', () => {
-			const collection = new Collo([
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana'
-				}
-			]);
+describe('The updateWhere fn', () => {
+	it('should return the same collection as the test', () => {
+		const collection = new Collo([
+			{
+				id: 1,
+				name: 'Adam'
+			},
+			{
+				id: 2,
+				name: 'Juliana'
+			}
+		]);
 
-			let _c = [
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana & Mila'
-				}
-			];
+		let _c = [
+			{
+				id: 1,
+				name: 'Adam'
+			},
+			{
+				id: 2,
+				name: 'Juliana & Mila'
+			}
+		];
 
+		if(!promisify) {
 			expect(collection.updateWhere({id:2},{
 				id: 2,
 				name: 'Juliana & Mila'
@@ -421,81 +417,93 @@ if(!promisify){
 				.to
 				.deep
 				.equal(_c);
-		});
-	});
-}else{
-	describe('The updateWhere fn', () => {
-		it('should be thenable and return the same collection as the test', () => {
-			const collection = new Collo([
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana'
-				}
-			]);
-
-			let _c = [
-				{
-					id: 1,
-					name: 'Adam'
-				},
-				{
-					id: 2,
-					name: 'Juliana & Mila'
-				}
-			];
+		}else{
+			collection.promisify();
 
 			collection.updateWhere({id:2},{
-				id: 2,
-				name: 'Juliana & Mila'
-			})
-			.then(res=>{
-				expect(res)
-					.to
-					.deep
-					.equal(_c);
-			});
-		});
+					id: 2,
+					name: 'Juliana & Mila'
+				})
+				.then(res=>{
+					expect(res)
+						.to
+						.deep
+						.equal(_c);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
+		}
 	});
-}
+});
 
 
 describe('The updateWhere fn', () => {
 	it('should null null given a bad input', () => {
-		expect(collection.updateWhere([]))
-			.to
-			.deep
-			.equal(null);
+		if(!promisify) {
+			expect(collection.updateWhere([]))
+				.to
+				.deep
+				.equal(null);
+		}else{
+			collection.updateWhere([])
+				.then(res=>{
+					expect(res)
+						.to
+						.equal(null);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
+		}
 	});
 });
 
 // removeWhere
-if(!promisify){
-	describe('The removeWhere fn', () => {
-		it('should return the same collection as the test', () => {
-			let _c = c;
-			const key = 'id',
-				  value = 3;
+describe('The removeWhere fn', () => {
+	it('should return the same collection as the test', () => {
+		const collection = new Collo([
+			{
+				id: 1,
+				name: 'Adam'
+			},
+			{
+				id: 2,
+				name: 'Juliana'
+			},
+			{
+				id: 3,
+				name: 'Chiggy'
+			}
+		]);
 
-			const coll = _c.filter(item => item[key] && !(item[key] === value));
+		let _c = [
+			{
+				id: 1,
+				name: 'Adam'
+			},
+			{
+				id: 2,
+				name: 'Juliana'
+			},
+			{
+				id: 3,
+				name: 'Chiggy'
+			}
+		];
 
-			expect(collection.removeWhere({id:3}))
+		const key = 'id',
+			  value = 2;
+
+		const coll = _c.filter(item => item[key] && !(item[key] === value));
+
+		if(!promisify) {
+			expect(collection.removeWhere({id:2}))
 				.to
 				.deep
 				.equal(coll);
-		});
-	});
-}else{
-	describe('The removeWhere fn', () => {
-		it('should be thenable and return the same collection as the test', () => {
-			let _c = c;
-			const key = 'id',
-				  value = 2;
-
-			const coll = _c.filter(item => item[key] && !(item[key] === value));
+		}else{
+			collection.promisify();
 
 			collection.removeWhere({id:2})
 				.then(res=>{
@@ -503,51 +511,94 @@ if(!promisify){
 						.to
 						.deep
 						.equal(coll);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
 				});
-		});
+		}
 	});
-}
+});
 
 
 describe('The removeWhere fn', () => {
 	it('should return null given a bad input', () => {
-		expect(collection.removeWhere([]))
-			.to
-			.deep
-			.equal(null);
+		if(!promisify) {
+			expect(collection.removeWhere([]))
+				.to
+				.deep
+				.equal(null);
+		}else{
+			collection.removeWhere([])
+				.then(res=>{
+					expect(res)
+						.to
+						.equal(null);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
+		}
 	});
 });
 
 
 // getTheIndexOf
-if(!promisify){
-	describe('The getTheIndexOf fn', () => {
-		it('should return the index of the item in the collection', () => {
+describe('The getTheIndexOf fn', () => {
+	it('should return the index of the item in the collection', () => {
+		const collection = new Collo([
+			{
+				id: 1,
+				name: 'Adam'
+			},
+			{
+				id: 2,
+				name: 'Juliana'
+			},
+			{
+				id: 3,
+				name: 'Chiggy'
+			}
+		]);
+
+		if(!promisify) {
 			expect(collection.getTheIndexOf({id:2}))
 				.to
 				.equal(1);
-		});
-	});
-}else{
-	describe('The getTheIndexOf fn', () => {
-		it('should be thenable and return the index of the item in the collection', () => {
+		}else{
+			collection.promisify();
+
 			collection.getTheIndexOf({id:2})
 				.then(res=>{
 					expect(res)
 						.to
 						.equal(1);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
 				});
-		});
+		}
 	});
-}
+});
 
 
 describe('The getTheIndexOf fn', () => {
 	it('should return null given a bad input', () => {
-		expect(collection.getTheIndexOf([]))
-			.to
-			.deep
-			.equal(null);
+		if(!promisify) {
+			expect(collection.getTheIndexOf([]))
+				.to
+				.deep
+				.equal(null);
+		}else{
+			collection.getTheIndexOf([])
+				.then(res=>{
+					expect(res)
+						.to
+						.equal(null);
+				})
+				.catch(err=>{
+					expect(err).to.equal(null);
+				});
+		}
 	});
 });
 

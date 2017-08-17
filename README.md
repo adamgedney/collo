@@ -61,14 +61,14 @@ collection.unPromisify()
 Get the index of an item by key/value
 
 ```
-collection.getTheIndexOf({id:1})
+const response = collection.getTheIndexOf({id:1})
 ```
 
 #### collection.list
 List all the items in the collection instance
 
 ```
-collection.list()
+const response = collection.list()
 ```
 
 
@@ -76,31 +76,31 @@ collection.list()
 Pluck an item by key/value
 
 ```
-collection.findWhere({id:1})
+const response = collection.findWhere({id:1})
 ```
 
 #### collection.exists
 Return a Boolean true if the item is in the collection, or false if not
 
 ```
-collection.exists({id:1})
+const response = collection.exists({id:1})
 ```
 
 #### collection.insert
-Insert an item at the end of the stack
+Insert an item at the end of the stack. Returns the collection after mutation.
 
 ```
-collection.insert({
+const response = collection.insert({
     id: 3,
     name: 'Paki Paki'
 })
 ```
 
 #### collection.insertAtIndex
-Splice in an item at a certain index
+Splice in an item at a certain index. Returns the collection after mutation
 
 ```
-collection.insertAtIndex({
+const response = collection.insertAtIndex({
     id: 3,
     name: 'Paki Paki'
 },index)
@@ -108,10 +108,10 @@ collection.insertAtIndex({
 
 
 #### collection.upsert
-Super handy upsert function. If the key/value is found then the data is updated, otherwise it's pushed into the stack
+Super handy upsert function. If the key/value is found then the data is updated, otherwise it's pushed into the stack. Returns the collection after mutation.
 
 ```
-collection.upsert({id:3},{
+const response = collection.upsert({id:3},{
     id: 3,
     name: 'Paki Paki'
 })
@@ -119,20 +119,20 @@ collection.upsert({id:3},{
 
 
 #### collection.updateWhere
-Update an item where the key/value match an item in the collection
+Update an item where the key/value match an item in the collection. Returns the collection after mutation.
 
 ```
-collection.updateWhere({id:2},{
+const response = collection.updateWhere({id:2},{
     id: 2,
     name: 'Mama Chiggy'
 })
 ```
 
 #### collection.removeWhere
-Remove an item where the key/value match an item in the collection
+Remove an item where the key/value match an item in the collection. Returns the collection after mutation.
 
 ```
-collection.removeWhere({id:3})
+const response = collection.removeWhere({id:3})
 ```
 
 

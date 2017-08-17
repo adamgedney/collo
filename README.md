@@ -32,6 +32,7 @@ const collection = new Collo(myCollection);
 
 ## Usage
 To Promisify the response : After you instantiate Collo, and before you use the api, trigger promisification
+
 ```
 const collection = new Collo(myCollection);
 

@@ -19,6 +19,10 @@ const collection = new Collo(c);
 
 if(promisify){
 	collection.promisify();
+}else{
+
+	// If promisify was on, it will be turned off
+	collection.unPromisify();
 }
 
 //console.log('COLLECTION************',collection.prototype);

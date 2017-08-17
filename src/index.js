@@ -13,6 +13,7 @@ function collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 	 * Setter for promisifying the api
 	 */
 	self.promisify = ()=>{options['promisify'] = true};
+	self.unPromisify = ()=>{options['promisify'] = false};
 
 	/**
 	 * Check if is an object with values

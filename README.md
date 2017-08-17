@@ -50,6 +50,13 @@ Promisify the responses
 collection.promisify()
 ```
 
+#### collection.unPromisify
+Un promisify the responses. So normal returns are triggered on api calls
+
+```
+collection.unPromisify()
+```
+
 #### collection.getTheIndexOf
 Get the index of an item by key/value
 

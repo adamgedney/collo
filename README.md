@@ -31,6 +31,30 @@ const collection = new Collo(myCollection);
 ```
 
 ## Usage
+To Promisify the response : After you instantiate Collo, and before you use the api, trigger promisification
+```
+const collection = new Collo(myCollection);
+
+collection.promisify();
+
+collection.list()
+    .then(items=>console.log(items))
+    .catch(err=>console.log(err));
+```
+
+#### collection.promisify
+Promisify the responses
+
+```
+collection.promisify()
+```
+
+#### collection.getTheIndexOf
+Get the index of an item by key/value
+
+```
+collection.getTheIndexOf({id:1})
+```
 
 #### collection.list
 List all the items in the collection instance

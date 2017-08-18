@@ -22,6 +22,12 @@ collection
 	.next(res=>console.log('NEXT ',res))
 	.error(err=>console.log('ERROR ',err));
 
+collection
+	.subscribe(
+		res=>console.log('NEXT ',res),
+		err=>console.log('ERROR ',err)
+	);
+
 // Set/reset promisification
 if(promisify){
 	collection.promisify();

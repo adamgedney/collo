@@ -2,8 +2,6 @@
  * Collo is Observable on the main collection instance
  * @param collection
  * @param opts
- * @param next
- * @param error
  * @returns {collo}
  */
 function Collo(collection, opts={}) {
@@ -20,6 +18,20 @@ function Collo(collection, opts={}) {
 	this.error = (cb)=>{
 		this.errorFn = (data=>{
 			cb(data);
+		});
+
+		return this;
+	};
+
+
+	// Return an Observer
+	this.subscribe = (next,err)=>{
+		this.nextFn = (data=>{
+				next(data);
+		});
+
+		this.errorFn = (data=>{
+				err(data);
 		});
 
 		return this;

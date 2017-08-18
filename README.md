@@ -48,6 +48,13 @@ There is a next and error fn on the instance that streams results on change or o
 
 ```
 collection
+	.subscribe(
+		res=>console.log('NEXT ',res),
+		err=>console.log('ERROR ',err)
+	);
+	
+	
+collection
 	.next(res=>console.log(res))
 	.error(err=>console.log(err));
 ```

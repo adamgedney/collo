@@ -1,7 +1,6 @@
 # Collo | An npm package for managing collection functions 
 (Pronounced Call-O)! 
 Super lightweight (No dependencies) package for dealing with in memory collections. It's like Mongoose and Lodash in one. It's like Collections Lodash [Col Lo].
-It's great for manipulation collections stored in a Redux store.
 
 
 ## Getting started
@@ -31,7 +30,7 @@ const collection = new Collo(myCollection);
 ```
 
 ## Usage
-To Promisify the response : After you instantiate Collo, and before you use the api, trigger promisification. You can use chaining or you can call `collection.proisify()` by itself.
+To Promisify the response : After you instantiate Collo, and before you use the api, trigger promisification. You can use chaining or you can call `collection.promisify()` by itself.
 The same is true of unpromisify.
 
 ```
@@ -44,7 +43,7 @@ collection
     .catch(err=>console.log(err));
 ```
 
-####New collections are Observable.
+#### New collections are Observable.
 There is a next and error fn on the instance that streams results on change or on error respectively.
 
 ```
@@ -139,7 +138,7 @@ const response = collection.updateWhere({id:2},{
 ```
 
 #### collection.removeWhere
-Remove an item where the key/value match an item in the collection. Returns the collection after mutation.
+Remove an item where the key/value matches an item in the collection. Returns the collection after mutation.
 
 ```
 const response = collection.removeWhere({id:3})

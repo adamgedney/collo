@@ -1,6 +1,6 @@
 # Collo | An npm package for managing collection functions 
 (Pronounced Call-O)! 
-Super lightweight package for dealing with in memory collections. It's like Mongoose and Lodash in one. It's like Collections Lodash [Col Lo].
+Super lightweight (No dependencies) package for dealing with in memory collections. It's like Mongoose and Lodash in one. It's like Collections Lodash [Col Lo].
 It's great for manipulation collections stored in a Redux store.
 
 

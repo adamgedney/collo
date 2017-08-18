@@ -1,8 +1,14 @@
-function collo(collection, opts={}, next=()=>{}, error=()=>{}) {
+/**
+ * Collo is Observable on the main collection instance
+ * @param collection
+ * @param opts
+ * @param next
+ * @param error
+ * @returns {collo}
+ */
+function Collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 	this._collection = collection || [];
-	this.next = next;
-	this.error = error;
-	
+
 	const self = this;
 	const InvalidInputType = "Invalid input type. Input must be an object";
 	const NotFound = "Item not found in the collection";
@@ -12,8 +18,8 @@ function collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 	/**
 	 * Setter for promisifying the api
 	 */
-	self.promisify = ()=>{options['promisify'] = true};
-	self.unPromisify = ()=>{options['promisify'] = false};
+	self.promisify = ()=>{options['promisify'] = true; return this;};
+	self.unPromisify = ()=>{options['promisify'] = false; return this;};
 
 	/**
 	 * Check if is an object with values
@@ -39,7 +45,6 @@ function collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 		return index;
 	};
 
-
 	/**
 	 * Rsponse utility fns
 	 * @param input
@@ -48,7 +53,7 @@ function collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 	 * @returns {*}
 	 */
 	self._onSuccess = (input,options)=>{
-		this.next(input);
+		next(self._collection);
 
 		if(options.promisify){
 			return new Promise(function (resolve, reject) {
@@ -60,17 +65,15 @@ function collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 	};
 
 	self._onFail = (input,options)=>{
-		const response = null;
-
-		this.error(response,input);
+		error(null,input);
 
 		if(options.promisify){
 			return new Promise(function (resolve, reject) {
-				reject(response,input);
+				reject(null,input);
 			});
 		}
 
-		return response;
+		return null;
 	};
 
 	/**
@@ -184,9 +187,9 @@ function collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 			}
 
 			return self._onSuccess(self._collection,options);
+		}else{
+			return self._onFail({Error:InvalidInputType},options);
 		}
-
-		return self._onFail({Error:InvalidInputType},options);
 	};
 
 	/**
@@ -236,4 +239,4 @@ function collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 };
 
 
-export default collo;
+export default Collo;

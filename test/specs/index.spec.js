@@ -15,7 +15,16 @@ const c = [
 
 // For testing you can toggle this boolean to run the promisified tests or the returns
 const promisify = true;
-const collection = new Collo(c);
+const collection = new Collo(c,{});
+
+//c,{},next,error
+//new Collections are Observable
+//collection(coll=>{
+//	console.log('Next',coll);
+//	},
+//	err=>{
+//		console.log('Error',err);
+//	});
 
 if(promisify){
 	collection.promisify();
@@ -25,6 +34,10 @@ if(promisify){
 	collection.unPromisify();
 }
 
+
+/**
+ * @Todo:  Add insertAfter, insertBefore, removeAfter, removeBefore
+ */
 //console.log('COLLECTION************',collection.prototype);
 
 // list
@@ -297,9 +310,9 @@ describe('The upsert [NO found item] fn', () => {
 				.deep
 				.equal(_c);
 		}else{
-			collection.promisify();
-
-			collection.upsert({id:3},{
+			collection
+				.promisify()
+				.upsert({id:3},{
 					id: 3,
 					name: 'Paki Paki'
 				})
@@ -317,7 +330,7 @@ describe('The upsert [NO found item] fn', () => {
 
 // upsert item FOUND
 describe('The upsert [Item FOUND] fn', () => {
-	it('should return the same collection as the input plus the new item', () => {
+	it('should return the same collection as the input plus the found item should be updated', () => {
 		const collection = new Collo([
 			{
 				id: 1,
@@ -349,20 +362,20 @@ describe('The upsert [Item FOUND] fn', () => {
 				.deep
 				.equal(_c);
 		}else{
-			collection.promisify();
-
-			expect(collection.upsert({id:2},{
+			collection
+				.promisify()
+				.upsert({id:2},{
 				id: 2,
 				name: 'Juliana & Mila'
-			}))
-				.then(res=>{
-					expect(res)
-						.to
-						.equal(_c);
-				})
-				.catch(err=>{
-					expect(err).to.equal(null);
-				});
+			})
+			.then(res=>{
+				expect(res)
+					.to
+					.equal(_c);
+			})
+			.catch(err=>{
+				expect(err).to.equal(null);
+			});
 		}
 	});
 });
@@ -422,9 +435,9 @@ describe('The updateWhere fn', () => {
 				.deep
 				.equal(_c);
 		}else{
-			collection.promisify();
-
-			collection.updateWhere({id:2},{
+			collection
+				.promisify()
+				.updateWhere({id:2},{
 					id: 2,
 					name: 'Juliana & Mila'
 				})
@@ -507,9 +520,9 @@ describe('The removeWhere fn', () => {
 				.deep
 				.equal(coll);
 		}else{
-			collection.promisify();
-
-			collection.removeWhere({id:2})
+			collection
+				.promisify()
+				.removeWhere({id:2})
 				.then(res=>{
 					expect(res)
 						.to
@@ -569,9 +582,9 @@ describe('The getTheIndexOf fn', () => {
 				.to
 				.equal(1);
 		}else{
-			collection.promisify();
-
-			collection.getTheIndexOf({id:2})
+			collection
+				.promisify()
+				.getTheIndexOf({id:2})
 				.then(res=>{
 					expect(res)
 						.to

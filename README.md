@@ -31,14 +31,15 @@ const collection = new Collo(myCollection);
 ```
 
 ## Usage
-To Promisify the response : After you instantiate Collo, and before you use the api, trigger promisification
+To Promisify the response : After you instantiate Collo, and before you use the api, trigger promisification. You can use chaining or you can call `collection.proisify()` by itself.
+The same is true of unpromisify.
 
 ```
 const collection = new Collo(myCollection);
 
-collection.promisify();
-
-collection.list()
+collection
+    .promisify()
+    .list()
     .then(items=>console.log(items))
     .catch(err=>console.log(err));
 ```

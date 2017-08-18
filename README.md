@@ -44,6 +44,15 @@ collection
     .catch(err=>console.log(err));
 ```
 
+####New collections are Observable.
+There is a next and error fn on the instance that streams results on change or on error respectively.
+
+```
+collection
+	.next(res=>console.log(res))
+	.error(err=>console.log(err));
+```
+	
 #### collection.promisify
 Promisify the responses
 

@@ -6,12 +6,29 @@
  * @param error
  * @returns {collo}
  */
-function Collo(collection, opts={}, next=()=>{}, error=()=>{}) {
+function Collo(collection, opts={}) {
 	this._collection = collection || [];
+	this.nextFn =()=>{};//noop
+	this.errorFn =()=>{};//noop
+	this.next = (cb)=>{
+		this.nextFn = (data=>{
+			cb(data);
+		});
+
+		return this;
+	};
+	this.error = (cb)=>{
+		this.errorFn = (data=>{
+			cb(data);
+		});
+
+		return this;
+	};
 
 	const self = this;
 	const InvalidInputType = "Invalid input type. Input must be an object";
 	const NotFound = "Item not found in the collection";
+
 
 	let options = opts || {};
 
@@ -53,7 +70,7 @@ function Collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 	 * @returns {*}
 	 */
 	self._onSuccess = (input,options)=>{
-		next(self._collection);
+		self.nextFn(self._collection);
 
 		if(options.promisify){
 			return new Promise(function (resolve, reject) {
@@ -65,7 +82,7 @@ function Collo(collection, opts={}, next=()=>{}, error=()=>{}) {
 	};
 
 	self._onFail = (input,options)=>{
-		error(null,input);
+		self.errorFn(null,input);
 
 		if(options.promisify){
 			return new Promise(function (resolve, reject) {

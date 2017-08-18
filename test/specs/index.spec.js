@@ -17,15 +17,12 @@ const c = [
 const promisify = true;
 const collection = new Collo(c,{});
 
-//c,{},next,error
 //new Collections are Observable
-//collection(coll=>{
-//	console.log('Next',coll);
-//	},
-//	err=>{
-//		console.log('Error',err);
-//	});
+collection
+	.next(res=>console.log('NEXT ',res))
+	.error(err=>console.log('ERROR ',err));
 
+// Set/reset promisification
 if(promisify){
 	collection.promisify();
 }else{
